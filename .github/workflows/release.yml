@@ -17,7 +17,7 @@ jobs:
       - name: Test Code
         run: |
           go mod download
-          go build ./webapp
+          go build ./webapp -o test
 
       - name: Delete Old Release
         uses: actions/github-script@v3
