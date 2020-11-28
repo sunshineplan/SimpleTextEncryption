@@ -27,5 +27,5 @@ jobs:
 
     - name: Run Unit tests
       run: |
-        go build -v ./cmd -o test1
-        go build -v ./webapp -o test2
+        go build -v -o test1 ./cmd
+        go build -v -o test2 ./webapp
