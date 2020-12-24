@@ -3,6 +3,12 @@
   "compilerOptions": {
     "moduleResolution": "node",
     "target": "es2019",
+    "baseUrl": ".", // this must be specified if "paths" is specified.
+    "paths": {
+      "sjcl": [
+        "src/sjcl.d.ts"
+      ] // this mapping is relative to "baseUrl"
+    },
     /** 
       Svelte Preprocess cannot figure out whether you have a value or a type, so tell TypeScript
       to enforce using `import type` instead of `import` for Types.
@@ -30,6 +36,7 @@
   "exclude": [
     "node_modules/*",
     "__sapper__/*",
-    "public/*"
+    "public/*",
+    "src/sjcl.d.ts"
   ]
 }

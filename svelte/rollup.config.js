@@ -40,7 +40,7 @@ export default {
 		file: 'public/build/bundle.js'
 	},
 	plugins: [
-		del({ targets: 'public/build/*' }),
+		del({ targets: 'public/build/*.map' }),
 		svelte({
 			preprocess: sveltePreprocess(),
 			compilerOptions: {
