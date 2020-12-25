@@ -37,7 +37,7 @@ declare namespace sjcl {
     // ________________________________________________________________________
 
     interface SjclMisc {
-        _pbkdf2Cache: { password?: string }
+        pa: { password?: string }
     }
 
     // ________________________________________________________________________
@@ -75,7 +75,7 @@ declare namespace sjcl {
     }
 
     interface SjclJson {
-        _encrypt: SjclConvenienceEncryptor;
-        _decrypt: SjclConvenienceDecryptor;
+        ja: SjclConvenienceEncryptor;
+        ia: SjclConvenienceDecryptor;
     }
 }

@@ -2,38 +2,37 @@
   "name": "ste",
   "version": "1.0.0",
   "scripts": {
-    "build": "rollup -c",
-    "dev": "rollup -c -w",
+    "build": "cross-env NODE_ENV=production webpack",
+    "dev": "webpack serve",
     "start": "sirv public",
     "validate": "svelte-check",
     "test": "jest",
     "test-coverage": "jest --coverage"
   },
   "devDependencies": {
-    "@rollup/plugin-commonjs": "^17.0.0",
-    "@rollup/plugin-node-resolve": "^11.0.1",
-    "@rollup/plugin-typescript": "^8.1.0",
     "@tsconfig/svelte": "^1.0.10",
     "@types/jest": "^26.0.19",
     "@types/pako": "^1.0.1",
+    "cross-env": "^7.0.3",
+    "css-loader": "^5.0.1",
     "jest": "^26.6.3",
-    "rollup": "^2.35.1",
-    "rollup-plugin-css-only": "^3.1.0",
-    "rollup-plugin-delete": "^2.0.0",
-    "rollup-plugin-livereload": "^2.0.0",
-    "rollup-plugin-svelte": "^7.0.0",
-    "rollup-plugin-terser": "^7.0.2",
+    "mini-css-extract-plugin": "^0.6.0",
+    "serve": "^11.0.0",
     "svelte": "^3.31.0",
-    "svelte-check": "^1.1.22",
+    "svelte-check": "^1.1.23",
+    "svelte-loader": "^2.13.6",
     "svelte-preprocess": "^4.6.1",
     "ts-jest": "^26.4.4",
-    "ts-node": "^9.1.1",
-    "tslib": "^2.0.3",
-    "typescript": "^4.1.3"
+    "ts-loader": "^8.0.12",
+    "typescript": "^4.1.3",
+    "webpack": "^5.11.0",
+    "webpack-cli": "^4.2.0",
+    "webpack-dev-server": "^3.11.0"
   },
   "dependencies": {
     "pako": "^2.0.2",
     "sirv-cli": "^1.0.10",
-    "sjcl": "^1.0.8"
+    "sjcl": "^1.0.8",
+    "sweetalert2": "^10.12.6"
   }
 }

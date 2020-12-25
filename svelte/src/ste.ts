@@ -7,9 +7,9 @@ const base64 = sjcl.codec.base64
 export function encrypt(key: string, plaintext: string): string {
   if (key == '')
     return btoa(unescape(encodeURIComponent(plaintext))).replace(/=/g, '')
-  sjcl.misc._pbkdf2Cache = {}
+  sjcl.misc.pa = {}
   const data = utils.compress(plaintext)
-  const encrypted = sjcl.json._encrypt(key, data.content)
+  const encrypted = sjcl.json.ja(key, data.content)
   return base64.fromBits(
     concat(
       concat(encrypted.salt, encrypted.iv),
@@ -28,6 +28,6 @@ export function decrypt(key: string, ciphertext: string): string {
     ct: utils.Uint8ArrayToBits(cipher.slice(24, cipher.length - 1))
   }
   if (new TextDecoder().decode(cipher.slice(cipher.length - 1, cipher.length)) == '1')
-    return utils.decompress(sjcl.json._decrypt(key, data, { raw: 1 }) as sjcl.BitArray)
-  else return sjcl.json._decrypt(key, data) as string
+    return utils.decompress(sjcl.json.ia(key, data, { raw: 1 }) as sjcl.BitArray)
+  else return sjcl.json.ia(key, data) as string
 }

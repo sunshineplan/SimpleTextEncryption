@@ -1,4 +1,5 @@
 <script lang="ts">
+  import Swal from "sweetalert2";
   import * as ste from "./ste";
 
   let plaintext = "";
@@ -7,12 +8,33 @@
   let show = false;
   let selected = "ciphertext";
 
+  const popup = Swal.mixin({
+    customClass: { confirmButton: "swal btn btn-primary" },
+    buttonsStyling: false,
+  });
+
   function encrypt(): void {
+    if (!plaintext) {
+      popup.fire("Error", "Empty plaintext!", "error");
+      return;
+    }
     ciphertext = ste.encrypt(key, plaintext);
   }
 
   function decrypt(): void {
-    plaintext = ste.decrypt(key, ciphertext);
+    if (!ciphertext) {
+      popup.fire("Error", "Empty ciphertext!", "error");
+      return;
+    }
+    try {
+      plaintext = ste.decrypt(key, ciphertext);
+    } catch (e) {
+      popup.fire(
+        "Error",
+        "Incorrect key or malformed encrypted text!<br><br>" + e.message,
+        "error"
+      );
+    }
   }
 
   function handleInput(e: Event): void {
@@ -37,127 +59,6 @@
   }
 </script>
 
-<style>
-  .navbar {
-    position: fixed;
-    width: 100%;
-    user-select: none;
-    height: 80px;
-    justify-content: space-between;
-  }
-
-  .navbar-brand {
-    font-size: 24px;
-  }
-
-  .container-fluid {
-    position: fixed;
-    top: 80px;
-    height: calc(100% - 80px);
-  }
-
-  .row {
-    height: 100%;
-  }
-
-  .btnbar {
-    width: 250px;
-    padding-top: 3rem;
-  }
-
-  #plaintext,
-  #ciphertext {
-    resize: none;
-    padding-left: 0.8em;
-    height: calc(100% - 15px);
-  }
-
-  .unencrypted,
-  .encrypted {
-    width: calc(50% - 125px);
-    padding: 0 15px;
-  }
-
-  #plaintext:focus {
-    border-color: #28a745;
-    box-shadow: 0 0 0 0.2rem #c3e6cb;
-  }
-
-  #ciphertext:focus {
-    border-color: #dc3545;
-    box-shadow: 0 0 0 0.2rem #f5c6cb;
-  }
-
-  .vertical {
-    display: none;
-  }
-
-  @media (max-width: 900px) {
-    .navbar {
-      position: relative;
-      height: auto;
-    }
-
-    .container-fluid {
-      position: relative;
-      top: 0;
-      height: auto;
-      padding-bottom: 15px;
-    }
-
-    .btnbar {
-      width: 100%;
-      padding: 1rem 15px;
-    }
-
-    .button-group {
-      display: inline-grid;
-      width: 250px;
-    }
-
-    .btn-block + .btn-block {
-      margin: 0;
-    }
-
-    .main {
-      display: flex;
-      padding-bottom: 10px;
-    }
-
-    #encrypt {
-      border-top-right-radius: 0;
-      border-bottom-right-radius: 0;
-    }
-
-    #decrypt {
-      border-top-left-radius: 0;
-      border-bottom-left-radius: 0;
-    }
-
-    .copy {
-      display: none;
-    }
-
-    .unencrypted,
-    .encrypted {
-      width: 100%;
-    }
-
-    #plaintext,
-    #ciphertext {
-      height: 30vh;
-    }
-
-    .horizontal {
-      display: none;
-    }
-
-    .vertical {
-      display: inline;
-    }
-  }
-</style>
-
 <main>
   <header class="navbar navbar-expand navbar-light flex-column flex-md-row">
     <a class="navbar-brand text-primary m-0 mr-md-3" href="/">
@@ -169,7 +70,7 @@
         <textarea
           class="form-control"
           bind:value={plaintext}
-          placeholder="Type (or paste) unencrypted text here..." />
+          placeholder="Type (or paste) plaintext here..." />
       </div>
       <div class="btnbar">
         <div class="button-group">
@@ -267,7 +168,7 @@
                 value="plaintext" />
               <label
                 class="custom-control-label"
-                for="plaintext">Unencrypted</label>
+                for="plaintext">Plaintext</label>
             </div>
             <div class="custom-control custom-radio custom-control-inline">
               <input
@@ -278,7 +179,7 @@
                 value="ciphertext" />
               <label
                 class="custom-control-label"
-                for="ciphertext">Encrypted</label>
+                for="ciphertext">Ciphertext</label>
             </div>
           </div>
           <br />
@@ -294,7 +195,7 @@
         <textarea
           class="form-control"
           bind:value={ciphertext}
-          placeholder="Paste encrypted text here..." />
+          placeholder="Paste ciphertext here..." />
       </div>
     </div>
   </div>

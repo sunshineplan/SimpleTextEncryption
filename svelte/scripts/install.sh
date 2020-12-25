@@ -4,12 +4,12 @@ installSoftware() {
     apt -qq -y install nginx
 }
 
-installSDA() {
-    curl -Lo /var/www/sda/build/bundle.js https://github.com/sunshineplan/sda/releases/download/v1.0/bundle.js --create-dirs
-    cd /var/www/sda
-    curl -LO https://raw.githubusercontent.com/sunshineplan/sda/main/public/style.css
-    curl -LO https://raw.githubusercontent.com/sunshineplan/sda/main/public/index.html
-    curl -LO https://raw.githubusercontent.com/sunshineplan/sda/main/scripts/sda.conf
+installSTE() {
+    curl -Lo /var/www/ste/build/bundle.js https://github.com/sunshineplan/SimpleTextEncryption/releases/download/v1.0/bundle.js --create-dirs
+    cd /var/www/ste
+    curl -LO https://raw.githubusercontent.com/sunshineplan/ste/main/public/style.css
+    curl -LO https://raw.githubusercontent.com/sunshineplan/ste/main/public/index.html
+    curl -LO https://raw.githubusercontent.com/sunshineplan/ste/main/scripts/ste.conf
 }
 
 writeLogrotateScrip() {
@@ -28,15 +28,15 @@ writeLogrotateScrip() {
 }
 
 setupNGINX() {
-    cp -s /var/www/sda/sda.conf /etc/nginx/conf.d
-    sed -i "s/\$domain/$domain/" /var/www/sda/sda.conf
+    cp -s /var/www/ste/ste.conf /etc/nginx/conf.d
+    sed -i "s/\$domain/$domain/" /var/www/ste/ste.conf
     service nginx reload
 }
 
 main() {
     read -p 'Please enter domain:' domain
     installSoftware
-    installSDA
+    installSTE
     writeLogrotateScrip
     setupNGINX
 }
