@@ -1,5 +1,5 @@
 export default {
   verbose: true,
-  testRegex: '/test/.*',
+  testRegex: '/test/.*\.ts',
   transform: { '\\.[jt]sx?$': 'ts-jest' }
 }
