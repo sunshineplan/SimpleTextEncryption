@@ -13,19 +13,16 @@ jobs:
       matrix:
         os: [ windows-latest, ubuntu-latest, macos-latest ]
     steps:
-    - name: Set up Go
-      uses: actions/setup-go@v2
-      with:
-        go-version: '1.x'
+      - name: Checkout Code
+        uses: actions/checkout@v2
 
-    - name: Check out code
-      uses: actions/checkout@v2
+      - name: Setup Node
+        uses: actions/setup-node@v1
+        with:
+          node-version: '15'
 
-    - name: Install dependencies
-      run: |
-        go mod download
-
-    - name: Run Unit tests
-      run: |
-        go build -v -o test1 ./cmd
-        go build -v -o test2 ./webapp
+      - name: Test Code
+        run: |
+          npm i --no-package-lock
+          #npm run test
+          npm run build
