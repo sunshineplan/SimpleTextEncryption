@@ -22,7 +22,7 @@ jobs:
 
       - name: Build
         run: |
-          npm i --no-package-lock
+          npm i --no-package-lock --legacy-peer-deps
           npm run build
 
       - name: Delete Old Release
