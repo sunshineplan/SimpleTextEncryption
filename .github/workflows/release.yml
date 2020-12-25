@@ -20,10 +20,17 @@ jobs:
         with:
           node-version: '15'
 
+      - name: Set up Go
+        uses: actions/setup-go@v2
+        with:
+          go-version: '1.x'
+
       - name: Build
         run: |
           npm i --no-package-lock --legacy-peer-deps
           npm run build
+          cd cmd
+          GOOS=windows GOARCH=amd64 go build -ldflags "-s -w" -o ste.exe
 
       - name: Delete Old Release
         uses: actions/github-script@v3
@@ -69,7 +76,7 @@ jobs:
           draft: false
           prerelease: false
 
-      - name: Upload Release Asset
+      - name: Upload Release Asset1
         uses: actions/upload-release-asset@v1
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
@@ -78,3 +85,13 @@ jobs:
           asset_path: ./public/build/bundle.js
           asset_name: bundle.js
           asset_content_type: application/javascript
+
+      - name: Upload Release Asset2
+        uses: actions/upload-release-asset@v1
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        with:
+          upload_url: ${{ steps.create_release.outputs.upload_url }}
+          asset_path: ./cmd/ste.exe
+          asset_name: ste.exe
+          asset_content_type: application/vnd.microsoft.portable-executable 
