@@ -95,3 +95,9 @@ jobs:
           asset_path: ./cmd/ste.exe
           asset_name: ste.exe
           asset_content_type: application/vnd.microsoft.portable-executable 
+
+      - name: GitHub Pages Deploy
+        uses: maxheld83/ghpages@v0.3.0
+        env:
+          BUILD_DIR: "public/"
+          GH_PAT: ${{ secrets.GH_PAT }}
