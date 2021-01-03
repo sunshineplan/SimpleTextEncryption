@@ -13,10 +13,25 @@
     buttonsStyling: false,
   });
 
-  function encrypt(): void {
+  async function encrypt(): Promise<void> {
     if (!plaintext) {
       popup.fire("Error", "Empty plaintext!", "error");
       return;
+    }
+    if (!key) {
+      const confirm = await Swal.fire({
+        title: "Warning!",
+        text: "No key provided, only encode using base64.",
+        icon: "warning",
+        confirmButtonText: "Continue",
+        showCancelButton: true,
+        customClass: {
+          confirmButton: "swal btn btn-primary",
+          cancelButton: "swal btn btn-danger",
+        },
+        buttonsStyling: false,
+      });
+      if (!confirm.value) return;
     }
     ciphertext = ste.encrypt(key, plaintext);
   }
