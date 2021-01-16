@@ -5,11 +5,8 @@ installSoftware() {
 }
 
 installSTE() {
-    curl -Lo /var/www/ste/build/bundle.js https://github.com/sunshineplan/SimpleTextEncryption/releases/download/v1.0/bundle.js --create-dirs
-    cd /var/www/ste
-    curl -LO https://raw.githubusercontent.com/sunshineplan/ste/main/public/style.css
-    curl -LO https://raw.githubusercontent.com/sunshineplan/ste/main/public/index.html
-    curl -LO https://raw.githubusercontent.com/sunshineplan/ste/main/scripts/ste.conf
+    mkdir -p /var/www/ste
+    curl -Lo- https://github.com/sunshineplan/SimpleTextEncryption/releases/download/v1.0/release.tar.gz | tar zxC /var/www/ste
 }
 
 writeLogrotateScrip() {
@@ -28,8 +25,8 @@ writeLogrotateScrip() {
 }
 
 setupNGINX() {
-    cp -s /var/www/ste/ste.conf /etc/nginx/conf.d
-    sed -i "s/\$domain/$domain/" /var/www/ste/ste.conf
+    cp -s /var/www/ste/scripts/ste.conf /etc/nginx/conf.d
+    sed -i "s/\$domain/$domain/" /var/www/ste/scripts/ste.conf
     service nginx reload
 }
 

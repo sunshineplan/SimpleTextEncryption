@@ -25,13 +25,6 @@ jobs:
         with:
           go-version: '1.x'
 
-      - name: Build
-        run: |
-          npm i --no-package-lock --legacy-peer-deps
-          npm run build
-          cd cmd
-          GOOS=windows GOARCH=amd64 go build -ldflags "-s -w" -o ste.exe
-
       - name: Delete Old Release
         uses: actions/github-script@v3
         with:
@@ -60,9 +53,15 @@ jobs:
               ref: 'tags/v1.0'
             })
 
-      - name: Get Current Date
-        id: date
-        run: echo "::set-output name=date::$(TZ=CST date +'%Y-%m-%d')"
+      - name: Build
+        id: build
+        run: |
+          npm i --no-package-lock --legacy-peer-deps
+          npm run build
+          tar cvzf release.tar.gz -C public . ../scripts
+          cd cmd
+          GOOS=windows GOARCH=amd64 go build -ldflags "-s -w" -o ste.exe
+          echo "::set-output name=date::$(TZ=CST date +'%Y-%m-%d')"
 
       - name: Create Release
         id: create_release
@@ -71,14 +70,10 @@ jobs:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         with:
           tag_name: v1.0
-          release_name: ${{ steps.date.outputs.date }}
-          body: ${{ steps.date.outputs.date }}
+          release_name: ${{ steps.build.outputs.date }}
+          body: ${{ steps.build.outputs.date }}
           draft: false
           prerelease: false
-
-      - name: Create GZIP archive
-        run: |
-          tar cvzf release.tar.gz public
 
       - name: Upload Release Asset1
         uses: actions/upload-release-asset@v1
