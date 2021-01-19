@@ -36,7 +36,6 @@
   ],
   "exclude": [
     "node_modules/*",
-    "__sapper__/*",
     "public/*",
     "src/sjcl.d.ts"
   ]

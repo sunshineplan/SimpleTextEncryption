@@ -4,9 +4,8 @@ import utils from './utils'
 const concat = sjcl.bitArray.concat
 const base64 = sjcl.codec.base64
 
-export function encrypt(key: string, plaintext: string): string {
-  if (key == '')
-    return btoa(unescape(encodeURIComponent(plaintext))).replace(/=/g, '')
+export const encrypt = (key: string, plaintext: string) => {
+  if (!key) return btoa(unescape(encodeURIComponent(plaintext))).replace(/=/g, '')
   sjcl.misc.pa = {}
   const data = utils.compress(plaintext)
   const encrypted = sjcl.json.ja(key, data.content)
@@ -18,9 +17,8 @@ export function encrypt(key: string, plaintext: string): string {
   ).replace(/=/g, '')
 }
 
-export function decrypt(key: string, ciphertext: string): string {
-  if (key == '')
-    return decodeURIComponent(escape(atob(ciphertext)))
+export const decrypt = (key: string, ciphertext: string) => {
+  if (!key) return decodeURIComponent(escape(atob(ciphertext)))
   const cipher = utils.BitsToUint8Array(base64.toBits(ciphertext))
   let data: sjcl.SjclCipherEncrypted = {
     salt: utils.Uint8ArrayToBits(cipher.slice(0, 8)),

@@ -58,7 +58,6 @@ jobs:
         run: |
           npm i --no-package-lock --legacy-peer-deps
           npm run build
-          tar cvzf release.tar.gz -C public . ../scripts
           cd cmd
           GOOS=windows GOARCH=amd64 go build -ldflags "-s -w" -o ste.exe
           echo "::set-output name=date::$(TZ=CST date +'%Y-%m-%d')"
@@ -74,6 +73,10 @@ jobs:
           body: ${{ steps.build.outputs.date }}
           draft: false
           prerelease: false
+
+      - name: Zip release files
+        run: |
+          tar cvzf release.tar.gz -C public . ../scripts
 
       - name: Upload Release Asset1
         uses: actions/upload-release-asset@v1
