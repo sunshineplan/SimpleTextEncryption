@@ -1,50 +1,61 @@
 const MiniCssExtractPlugin = require('mini-css-extract-plugin');
 const path = require('path');
+const sveltePreprocess = require('svelte-preprocess');
 
 const mode = process.env.NODE_ENV || 'development';
 const prod = mode === 'production';
 
 module.exports = {
     entry: {
-        bundle: ['./src/main.ts']
+        'build/bundle': ['./src/main.ts']
     },
     resolve: {
         alias: {
-            svelte: path.resolve('node_modules', 'svelte')
+            svelte: path.dirname(require.resolve('svelte/package.json'))
         },
-        extensions: ['.mjs', '.js', '.svelte', '.ts'],
+        extensions: ['.mjs', '.js', '.ts', '.svelte'],
         mainFields: ['svelte', 'browser', 'module', 'main'],
-        fallback: {
-            crypto: false
-        }
+        fallback: { crypto: false }
     },
     output: {
-        path: __dirname + '/public/build',
+        path: path.join(__dirname, '/public'),
         filename: '[name].js',
         chunkFilename: '[name].[id].js'
     },
-    devServer: {
-        contentBase: path.join(__dirname, '/public'),
-        publicPath: '/build/',
-        compress: true,
-        port: 5000
-    },
     module: {
         rules: [
+            {
+                test: /\.ts$/,
+                loader: 'ts-loader',
+                exclude: /node_modules/
+            },
             {
                 test: /\.svelte$/,
                 use: {
                     loader: 'svelte-loader',
                     options: {
-                        hotReload: true,
-                        preprocess: require('svelte-preprocess')({})
+                        compilerOptions: {
+                            dev: !prod
+                        },
+                        emitCss: prod,
+                        hotReload: !prod,
+                        preprocess: sveltePreprocess({ sourceMap: !prod })
                     }
                 }
             },
             {
-                test: /\.tsx?$/,
-                use: 'ts-loader',
-                exclude: /node_modules/,
+                test: /\.css$/,
+                use: [
+                    MiniCssExtractPlugin.loader,
+                    'css-loader'
+                ]
+            },
+            {
+                // required to prevent errors from Svelte on Webpack 5+
+                test: /node_modules\/svelte\/.*\.mjs$/,
+                resolve: {
+                    fullySpecified: false
+                }
             }
         ]
     },
@@ -54,5 +65,9 @@ module.exports = {
             filename: '[name].css'
         })
     ],
-    devtool: prod ? false : 'source-map'
+    devtool: prod ? false : 'source-map',
+    devServer: {
+        hot: true,
+        port: 5000
+    }
 };

@@ -118,7 +118,8 @@
           on:click={encrypt}
           class="btn btn-danger btn-block"
           type="button"
-          id="encrypt">
+          id="encrypt"
+        >
           <span class="horizontal">
             <svg width="1em" height="1em" fill="currentColor">
               <path
@@ -150,7 +151,8 @@
           on:click={decrypt}
           class="btn btn-success btn-block"
           type="button"
-          id="decrypt">
+          id="decrypt"
+        >
           <span class="horizontal">
             <svg width="1em" height="1em" fill="currentColor">
               <path
@@ -185,7 +187,10 @@
           on:click={copy}
           type="button"
           class="btn btn-primary btn-block"
-          id="copy"> Copy to clipboard </button>
+          id="copy"
+        >
+          Copy to clipboard
+        </button>
         <div class="d-flex justify-content-around">
           <div class="custom-control custom-radio custom-control-inline">
             <input
@@ -221,7 +226,10 @@
             ciphertext = "";
           }}
           type="button"
-          class="btn btn-primary btn-block"> Clear </button>
+          class="btn btn-primary btn-block"
+        >
+          Clear
+        </button>
       </div>
     </div>
     <div class="encrypted">
