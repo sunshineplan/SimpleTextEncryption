@@ -30,7 +30,8 @@ jobs:
         run: |
           npm i --no-package-lock
           npm run build
-          GOOS=windows go build -ldflags "-s -w" -o ste.exe ./cmd
+          cd cmd
+          GOOS=windows go build -ldflags "-s -w" -o ste.exe
           echo "::set-output name=date::$(TZ=PRC date +'%Y-%m-%d')"
 
       - name: Delete Old Release
