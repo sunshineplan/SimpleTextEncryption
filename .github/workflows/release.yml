@@ -1,15 +1,15 @@
 name: Release
 
 on:
+  workflow_dispatch:
   workflow_run:
-    workflows: [ Test ]
-    branches: [ main ]
+    workflows: [ Test, Dependabot ]
     types: 
       - completed
 
 jobs:
   release:
-    if: ${{ github.event.workflow_run.conclusion == 'success' }}
+    if: ${{ github.event.workflow_run.conclusion == 'success' || github.event_name == 'workflow_dispatch' }}
     runs-on: ubuntu-latest
     steps:
       - name: Checkout Code
@@ -28,7 +28,7 @@ jobs:
       - name: Build
         id: build
         run: |
-          npm i --no-package-lock
+          npm install
           npm run build
           cd cmd
           GOOS=windows go build -ldflags "-s -w" -o ../ste.exe
