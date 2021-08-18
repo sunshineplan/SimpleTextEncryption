@@ -34,6 +34,8 @@
       if (!confirm.value) return;
     }
     ciphertext = ste.encrypt(key, plaintext);
+    const textarea = document.querySelector("div.encrypted>textarea");
+    if (textarea) textarea.scrollTop = 0;
   };
 
   const decrypt = async () => {
@@ -43,6 +45,8 @@
     }
     try {
       plaintext = ste.decrypt(key, ciphertext);
+      const textarea = document.querySelector("div.unencrypted>textarea");
+      if (textarea) textarea.scrollTop = 0;
     } catch (e) {
       await popup.fire(
         "Error",
