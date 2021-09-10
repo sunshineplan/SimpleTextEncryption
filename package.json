@@ -21,7 +21,7 @@
     "svelte": "^3.42.4",
     "svelte-check": "^2.2.5",
     "svelte-loader": "^3.1.2",
-    "svelte-preprocess": "^4.9.3",
+    "svelte-preprocess": "^4.9.4",
     "ts-jest": "^27.0.5",
     "ts-loader": "^9.2.5",
     "ts-node": "^10.2.1",
