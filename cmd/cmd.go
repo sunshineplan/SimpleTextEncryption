@@ -68,7 +68,7 @@ func main() {
 			fmt.Print("\nKey: ")
 			key, _ = terminal.ReadPassword(int(os.Stdin.Fd()))
 			fmt.Println("\nEncrypted Content:")
-			fmt.Println(cipher.Encrypt(string(key), content))
+			fmt.Println(cipher.EncryptText(string(key), content))
 			fmt.Println("\nPress enter to continue...")
 			terminal.ReadPassword(int(os.Stdin.Fd()))
 		case "2":
@@ -76,7 +76,7 @@ func main() {
 			fmt.Scanln(&content)
 			fmt.Print("\nKey: ")
 			key, _ = terminal.ReadPassword(int(os.Stdin.Fd()))
-			ct, err := cipher.Decrypt(string(key), content)
+			ct, err := cipher.DecryptText(string(key), content)
 			if err != nil {
 				fmt.Println("\nEmpty or Malformed content!")
 			} else {
