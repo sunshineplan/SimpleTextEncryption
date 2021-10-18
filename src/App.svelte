@@ -48,9 +48,15 @@
       const textarea = document.querySelector("div.unencrypted>textarea");
       if (textarea) textarea.scrollTop = 0;
     } catch (e) {
+      let message = "Unknow Error";
+      if (typeof e === "string") {
+        message = e;
+      } else if (e instanceof Error) {
+        message = e.message;
+      }
       await popup.fire(
         "Error",
-        "Incorrect key or malformed encrypted text!<br><br>" + e.message,
+        "Incorrect key or malformed encrypted text!<br><br>" + message,
         "error"
       );
     }
