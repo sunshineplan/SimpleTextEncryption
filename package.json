@@ -15,7 +15,7 @@
     "@types/pako": "^1.0.3",
     "cross-env": "^7.0.3",
     "css-loader": "^6.5.1",
-    "jest": "^27.4.5",
+    "jest": "^27.4.6",
     "mini-css-extract-plugin": "^2.4.5",
     "svelte": "^3.44.3",
     "svelte-check": "^2.2.11",
