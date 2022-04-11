@@ -18,7 +18,7 @@
     "jest": "^27.5.1",
     "mini-css-extract-plugin": "^2.6.0",
     "svelte": "^3.46.6",
-    "svelte-check": "^2.5.0",
+    "svelte-check": "^2.6.0",
     "svelte-loader": "^3.1.2",
     "svelte-preprocess": "^4.10.5",
     "ts-jest": "^27.1.4",
