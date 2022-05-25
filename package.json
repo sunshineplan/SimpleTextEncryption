@@ -32,6 +32,6 @@
   "dependencies": {
     "pako": "^2.0.4",
     "sjcl": "^1.0.8",
-    "sweetalert2": "^11.4.16"
+    "sweetalert2": "^11.4.17"
   }
 }
