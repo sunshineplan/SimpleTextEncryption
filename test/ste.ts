@@ -1,9 +1,5 @@
-/**
- * @jest-environment ./test/environment
- */
+import crypto from 'crypto'
 import { encrypt, decrypt } from '../src/ste'
-
-const crypto = require('crypto')
 
 test('Encrypt&Decrypt', () => {
   for (let i = 0; i < 50; i++) {

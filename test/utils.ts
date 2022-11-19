@@ -1,10 +1,6 @@
-/**
- * @jest-environment ./test/environment
- */
+import crypto from 'crypto'
 import sjcl from 'sjcl'
 import utils from '../src/utils'
-
-const crypto = require('crypto')
 
 test('Compress&Decompress', () => {
     for (let i = 0; i < 100; i++) {

@@ -3,10 +3,7 @@
 // Definitions by: Eugene Chernyshov <https://github.com/Evgenus>, Vytautas Mizgiris <https://github.com/mizvyt>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-export = sjcl;
-export as namespace sjcl;
-
-declare namespace sjcl {
+declare module 'sjcl' {
     export var bitArray: BitArrayStatic;
     export var codec: SjclCodecs;
     export var misc: SjclMisc;
