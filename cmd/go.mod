@@ -1,6 +1,6 @@
 module SimpleTextEncryption
 
-go 1.19
+go 1.20
 
 require (
 	github.com/sunshineplan/cipher v1.0.5
