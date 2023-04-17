@@ -13,7 +13,8 @@
      */
     "allowJs": true,
     "checkJs": true,
-    "isolatedModules": true
+    "isolatedModules": true,
+    "verbatimModuleSyntax": false // for jest test
   },
   "include": [
     "src/**/*.d.ts",
