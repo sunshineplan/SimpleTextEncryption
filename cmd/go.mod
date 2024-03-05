@@ -3,7 +3,7 @@ module SimpleTextEncryption
 go 1.22
 
 require (
-	github.com/sunshineplan/cipher v1.0.5
+	github.com/sunshineplan/cipher v1.0.7
 	golang.org/x/crypto v0.21.0
 )
 
