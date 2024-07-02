@@ -24,7 +24,7 @@
     "sweetalert2": "^11.12.1",
     "ts-jest": "^29.1.5",
     "ts-node": "^10.9.2",
-    "typescript": "^5.5.2",
+    "typescript": "^5.5.3",
     "vite": "^4.5.3"
   }
 }
