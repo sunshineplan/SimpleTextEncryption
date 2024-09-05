@@ -21,7 +21,7 @@
     "sjcl": "^1.0.8",
     "svelte": "^4.2.19",
     "svelte-check": "^4.0.0",
-    "sweetalert2": "^11.13.1",
+    "sweetalert2": "^11.13.2",
     "ts-jest": "^29.2.5",
     "ts-node": "^10.9.2",
     "typescript": "^5.5.4",
