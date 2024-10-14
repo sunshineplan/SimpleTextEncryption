@@ -20,7 +20,7 @@
     "pako": "^2.1.0",
     "sjcl": "^1.0.8",
     "svelte": "^4.2.19",
-    "svelte-check": "^4.0.4",
+    "svelte-check": "^4.0.5",
     "sweetalert2": "^11.14.3",
     "ts-jest": "^29.2.5",
     "ts-node": "^10.9.2",
