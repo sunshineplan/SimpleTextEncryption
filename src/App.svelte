@@ -2,11 +2,11 @@
   import Swal from "sweetalert2";
   import * as ste from "./ste";
 
-  let plaintext = "";
-  let ciphertext = "";
-  let key = "";
-  let show = false;
-  let selected = "ciphertext";
+  let plaintext = $state("");
+  let ciphertext = $state("");
+  let key = $state("");
+  let show = $state(false);
+  let selected = $state("ciphertext");
 
   const popup = Swal.mixin({
     customClass: { confirmButton: "swal btn btn-primary" },
@@ -57,7 +57,7 @@
       await popup.fire(
         "Error",
         "Incorrect key or malformed encrypted text!<br><br>" + message,
-        "error"
+        "error",
       );
     }
   };
@@ -73,13 +73,13 @@
         await popup.fire(
           "Success",
           "Text has been copied to clipboard.",
-          "success"
+          "success",
         );
       } else
         await popup.fire(
           "Error",
           "This function requires a secure origin. (HTTPS or localhost)",
-          "error"
+          "error",
         );
   };
 </script>
@@ -96,7 +96,7 @@
         class="form-control"
         bind:value={plaintext}
         placeholder="Type (or paste) plaintext here..."
-      />
+      ></textarea>
     </div>
     <div class="btnbar">
       <div class="button-group">
@@ -108,7 +108,7 @@
             type={show ? "text" : "password"}
             class="form-control"
             maxlength="1000"
-            on:input={(e) => {
+            oninput={(e) => {
               if (e.target) key = e.currentTarget.value;
             }}
           />
@@ -125,7 +125,7 @@
       </div>
       <div class="button-group main">
         <button
-          on:click={encrypt}
+          onclick={encrypt}
           class="btn btn-danger btn-block"
           type="button"
           id="encrypt"
@@ -158,7 +158,7 @@
           </span>
         </button>
         <button
-          on:click={decrypt}
+          onclick={decrypt}
           class="btn btn-success btn-block"
           type="button"
           id="decrypt"
@@ -194,7 +194,7 @@
       <div class="button-group copy">
         <br />
         <button
-          on:click={copy}
+          onclick={copy}
           type="button"
           class="btn btn-primary btn-block"
           id="copy"
@@ -231,7 +231,7 @@
       </div>
       <div class="button-group">
         <button
-          on:click={() => {
+          onclick={() => {
             plaintext = "";
             ciphertext = "";
           }}
@@ -247,7 +247,7 @@
         class="form-control"
         bind:value={ciphertext}
         placeholder="Paste ciphertext here..."
-      />
+      ></textarea>
     </div>
   </div>
 </div>

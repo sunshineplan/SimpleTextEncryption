@@ -1,5 +1,6 @@
 import crypto from 'crypto'
-import { encrypt, decrypt } from '../src/ste'
+import { expect, test } from 'vitest'
+import { decrypt, encrypt } from '../src/ste'
 
 test('Encrypt&Decrypt', () => {
   for (let i = 0; i < 50; i++) {
