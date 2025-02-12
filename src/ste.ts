@@ -28,8 +28,8 @@ const cryptoKey = async (key: string, salt: Uint8Array | Buffer, usage: KeyUsage
 
 export const encrypt = async (key: string, plaintext: string): Promise<string> => {
   if (!key) return Buffer.from(plaintext).toString('base64').replace(/=/g, '')
-  const salt = crypto.getRandomValues(new Uint8Array(saltLength))
-  const iv = crypto.getRandomValues(new Uint8Array(gcmStandardNonceSize))
+  const salt = utils.random(saltLength)
+  const iv = utils.random(gcmStandardNonceSize)
   const data = utils.compress(plaintext)
   const encrypted = await crypto.subtle.encrypt(
     { name: 'AES-GCM', iv },

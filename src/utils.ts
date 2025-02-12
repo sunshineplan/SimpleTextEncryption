@@ -1,6 +1,10 @@
 import pako from 'pako'
 
 namespace utils {
+  export const random = (length: number) => {
+    return crypto.getRandomValues(new Uint8Array(length))
+  }
+
   export const compress = (str: string) => {
     const encoder = new TextEncoder()
     const uint8array = encoder.encode(str)
