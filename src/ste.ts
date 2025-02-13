@@ -1,31 +1,61 @@
-import sjcl from 'sjcl'
 import utils from './utils'
 
-const concat = sjcl.bitArray.concat
-const base64 = sjcl.codec.base64
+const saltLength = 8
+const iterations = 1000000
+const keyLength = 32
+const gcmStandardNonceSize = 12
 
-export const encrypt = (key: string, plaintext: string) => {
-  if (!key) return btoa(unescape(encodeURIComponent(plaintext))).replace(/=/g, '')
-  sjcl.misc.pa = {}
-  const data = utils.compress(plaintext)
-  const encrypted = sjcl.json.ja(key, data.content)
-  return base64.fromBits(
-    concat(
-      concat(encrypted.salt, encrypted.iv),
-      concat(encrypted.ct, data.compression)
-    )
-  ).replace(/=/g, '')
+const cryptoKey = async (key: string, salt: Uint8Array, usage: KeyUsage) => {
+  return await crypto.subtle.deriveKey(
+    {
+      name: 'PBKDF2',
+      salt,
+      iterations,
+      hash: 'SHA-256'
+    },
+    await crypto.subtle.importKey(
+      'raw',
+      new TextEncoder().encode(key),
+      { name: 'PBKDF2' },
+      false,
+      ['deriveKey']
+    ),
+    { name: 'AES-GCM', length: keyLength * 8 },
+    false,
+    [usage]
+  )
 }
 
-export const decrypt = (key: string, ciphertext: string) => {
-  if (!key) return decodeURIComponent(escape(atob(ciphertext)))
-  const cipher = utils.BitsToUint8Array(base64.toBits(ciphertext))
-  let data: sjcl.SjclCipherEncrypted = {
-    salt: utils.Uint8ArrayToBits(cipher.slice(0, 8)),
-    iv: utils.Uint8ArrayToBits(cipher.slice(8, 24)),
-    ct: utils.Uint8ArrayToBits(cipher.slice(24, cipher.length - 1))
-  }
-  if (new TextDecoder().decode(cipher.slice(cipher.length - 1, cipher.length)) == '1')
-    return utils.decompress(sjcl.json.ia(key, data, { raw: 1 }) as sjcl.BitArray)
-  else return sjcl.json.ia(key, data) as string
+export const encrypt = async (key: string, plaintext: string): Promise<string> => {
+  if (!key) return utils.base64encode(plaintext).replace(/=/g, '')
+  const salt = utils.random(saltLength)
+  const iv = utils.random(gcmStandardNonceSize)
+  const data = utils.compress(plaintext)
+  const encrypted = await crypto.subtle.encrypt(
+    { name: 'AES-GCM', iv },
+    await cryptoKey(key, salt, 'encrypt'),
+    data.content
+  )
+  const result = new Uint8Array(saltLength + gcmStandardNonceSize + encrypted.byteLength + 1)
+  result.set(salt)
+  result.set(iv, saltLength)
+  result.set(new Uint8Array(encrypted), saltLength + gcmStandardNonceSize)
+  result[saltLength + gcmStandardNonceSize + encrypted.byteLength] = data.compression
+  return utils.base64encode(result).replace(/=/g, '')
+}
+
+export const decrypt = async (key: string, ciphertext: string) => {
+  const data = utils.base64decode(ciphertext)
+  if (!key) return new TextDecoder().decode(data).toString()
+  const salt = data.subarray(0, saltLength)
+  const iv = data.subarray(saltLength, saltLength + gcmStandardNonceSize)
+  const encrypted = data.subarray(saltLength + gcmStandardNonceSize, data.length - 1)
+  const decrypted = await crypto.subtle.decrypt(
+    { name: 'AES-GCM', iv },
+    await cryptoKey(key, salt, 'decrypt'),
+    encrypted
+  )
+  return data[data.length - 1]
+    ? utils.decompress(decrypted)
+    : new TextDecoder().decode(decrypted).toString()
 }

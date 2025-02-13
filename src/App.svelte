@@ -33,7 +33,7 @@
       });
       if (!confirm.value) return;
     }
-    ciphertext = ste.encrypt(key, plaintext);
+    ciphertext = await ste.encrypt(key, plaintext);
     const textarea = document.querySelector("div.encrypted>textarea");
     if (textarea) textarea.scrollTop = 0;
   };
@@ -44,7 +44,7 @@
       return;
     }
     try {
-      plaintext = ste.decrypt(key, ciphertext);
+      plaintext = await ste.decrypt(key, ciphertext);
       const textarea = document.querySelector("div.unencrypted>textarea");
       if (textarea) textarea.scrollTop = 0;
     } catch (e) {
