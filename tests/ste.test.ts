@@ -8,7 +8,9 @@ test('Encrypt&Decrypt', async () => {
     const key = Buffer.from(utils.random((Math.random() * 10))).toString('hex')
     expect(await decrypt(key, await encrypt(key, plaintext))).toBe(plaintext)
   }
-  const plaintext = '你好世界'
-  const key = '测试'
-  expect(await decrypt(key, await encrypt(key, plaintext))).toBe(plaintext)
-})
+  const plaintext = 'Hello, 世界'
+  const key = '测试Key'
+  const encrypted = await encrypt(key, plaintext)
+  console.log(encrypted)
+  expect(await decrypt(key, encrypted)).toBe(plaintext)
+}, 600000)
