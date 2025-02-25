@@ -4,7 +4,7 @@ go 1.24
 
 require (
 	github.com/sunshineplan/cipher v1.0.8
-	golang.org/x/crypto v0.34.0
+	golang.org/x/crypto v0.35.0
 )
 
 require (
