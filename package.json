@@ -19,7 +19,7 @@
     "pako": "^2.1.0",
     "svelte": "^5.28.2",
     "svelte-check": "^4.1.6",
-    "sweetalert2": "^11.19.1",
+    "sweetalert2": "^11.21.0",
     "ts-node": "^10.9.2",
     "typescript": "^5.8.3",
     "vite": "^6.3.4",
