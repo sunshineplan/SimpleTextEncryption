@@ -14,8 +14,8 @@ namespace utils {
     return Uint8Array.from(atob(base64), c => c.charCodeAt(0))
   }
   export const compress = (str: string) => {
-    const uint8array = new TextEncoder().encode(str)
-    const deflate = pako.deflate(uint8array)
+    const uint8array = new TextEncoder().encode(str) as Uint8Array<ArrayBuffer>
+    const deflate = pako.deflate(uint8array) as Uint8Array<ArrayBuffer>
     if (uint8array.length > deflate.length)
       return { content: deflate, compression: 1 }
     else return { content: uint8array, compression: 0 }

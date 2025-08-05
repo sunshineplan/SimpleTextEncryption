@@ -5,7 +5,7 @@ const iterations = 1000000
 const keyLength = 32
 const gcmStandardNonceSize = 12
 
-const cryptoKey = async (key: string, salt: Uint8Array, usage: KeyUsage) => {
+const cryptoKey = async (key: string, salt: BufferSource, usage: KeyUsage) => {
   return await crypto.subtle.deriveKey(
     {
       name: 'PBKDF2',
