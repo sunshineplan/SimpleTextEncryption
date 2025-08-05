@@ -4,7 +4,7 @@ namespace utils {
   export const random = (length: number) => {
     return crypto.getRandomValues(new Uint8Array(length))
   }
-  export const base64encode = (s: string | Uint8Array) => {
+  export const base64encode = (s: string | Uint8Array<ArrayBuffer>) => {
     let array: number[]
     if (typeof s === 'string') array = Array.from(new TextEncoder().encode(s))
     else array = Array.from(s)
