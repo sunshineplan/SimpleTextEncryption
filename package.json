@@ -17,7 +17,7 @@
     "@types/pako": "^2.0.4",
     "@vitest/coverage-v8": "^4.0.17",
     "pako": "^2.1.0",
-    "svelte": "^5.46.4",
+    "svelte": "^5.47.0",
     "svelte-check": "^4.3.5",
     "sweetalert2": "^11.26.17",
     "ts-node": "^10.9.2",
