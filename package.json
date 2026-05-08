@@ -11,7 +11,7 @@
     "test-coverage": "vitest run --coverage"
   },
   "devDependencies": {
-    "@sveltejs/vite-plugin-svelte": "^7.1.1",
+    "@sveltejs/vite-plugin-svelte": "^7.1.2",
     "@tsconfig/svelte": "^5.0.8",
     "@types/node": "^25.6.0",
     "@types/pako": "^2.0.4",
