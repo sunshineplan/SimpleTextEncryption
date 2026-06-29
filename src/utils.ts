@@ -15,7 +15,7 @@ namespace utils {
   }
   export const compress = (str: string) => {
     const uint8array = new TextEncoder().encode(str)
-    const deflate = pako.deflate(uint8array)
+    const deflate = pako.deflate(uint8array) as Uint8Array<ArrayBuffer>
     if (uint8array.length > deflate.length)
       return { content: deflate, compression: 1 }
     else return { content: uint8array, compression: 0 }
