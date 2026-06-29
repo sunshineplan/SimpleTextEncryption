@@ -1,4 +1,4 @@
-import pako from 'pako'
+import * as pako from 'pako'
 
 namespace utils {
   export const random = (length: number) => {
@@ -14,14 +14,14 @@ namespace utils {
     return Uint8Array.from(atob(base64), c => c.charCodeAt(0))
   }
   export const compress = (str: string) => {
-    const uint8array = new TextEncoder().encode(str) as Uint8Array<ArrayBuffer>
+    const uint8array = new TextEncoder().encode(str)
     const deflate = pako.deflate(uint8array) as Uint8Array<ArrayBuffer>
     if (uint8array.length > deflate.length)
       return { content: deflate, compression: 1 }
     else return { content: uint8array, compression: 0 }
   }
   export const decompress = (data: ArrayBuffer) => {
-    return pako.inflate(data, { to: 'string' })
+    return pako.inflate(data, { toText: true })
   }
 }
 export default utils
