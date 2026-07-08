@@ -11,14 +11,14 @@
     "test-coverage": "vitest run --coverage"
   },
   "devDependencies": {
-    "@sveltejs/vite-plugin-svelte": "^7.1.4",
+    "@sveltejs/vite-plugin-svelte": "^7.2.0",
     "@tsconfig/svelte": "^5.0.8",
     "@types/node": "^26.1.0",
     "@types/pako": "^2.0.4",
     "@vitest/coverage-v8": "^4.1.10",
     "pako": "^3.0.1",
     "svelte": "^5.56.4",
-    "svelte-check": "^4.7.1",
+    "svelte-check": "^4.7.2",
     "sweetalert2": "^11.26.25",
     "ts-node": "^10.9.2",
     "typescript": "^6.0.3",
