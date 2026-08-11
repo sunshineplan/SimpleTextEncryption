@@ -13,7 +13,7 @@
   "devDependencies": {
     "@sveltejs/vite-plugin-svelte": "^7.3.0",
     "@tsconfig/svelte": "^5.0.8",
-    "@types/node": "^26.1.2",
+    "@types/node": "^26.2.0",
     "@types/pako": "^3.0.0",
     "@vitest/coverage-v8": "^4.1.10",
     "pako": "^3.0.1",
