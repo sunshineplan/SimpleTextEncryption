@@ -1,10 +1,10 @@
 module SimpleTextEncryption
 
-go 1.25.0
+go 1.26.0
 
 require (
 	github.com/sunshineplan/cipher v1.0.8
-	golang.org/x/crypto v0.55.0
+	golang.org/x/crypto v0.56.0
 )
 
 require (
