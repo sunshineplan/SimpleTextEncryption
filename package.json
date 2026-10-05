@@ -15,14 +15,14 @@
     "@tsconfig/svelte": "^5.0.8",
     "@types/node": "^26.6.3",
     "@types/pako": "^3.0.0",
-    "@vitest/coverage-v8": "^5.0.2",
+    "@vitest/coverage-v8": "^5.0.3",
     "pako": "^3.0.2",
     "svelte": "^5.57.1",
     "svelte-check": "^4.7.6",
     "sweetalert2": "^11.26.25",
     "ts-node": "^10.9.2",
     "typescript": "^6.0.3",
-    "vite": "^8.3.1",
+    "vite": "^8.3.2",
     "vitest": "^5.0.0"
   }
 }
